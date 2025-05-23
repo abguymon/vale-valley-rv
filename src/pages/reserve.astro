@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Reserve Your Stay"
+  description="Book your stay at Vale Valley RV Park. Choose from daily, weekly, or monthly rates. Experience the perfect RV getaway in nature."
+>
+  <div class="bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-heading font-bold text-center mb-12">Reserve Your Stay</h1>
+      
+      <!-- Rate Options -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <!-- Daily Rate -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <h2 class="text-2xl font-heading font-bold mb-4">Daily Rate</h2>
+          <p class="text-3xl font-bold text-primary mb-4">$50<span class="text-lg text-gray-600">/night</span></p>
+          <ul class="text-gray-600 space-y-2 mb-6">
+            <li>Utilities included</li>
+          </ul>
+          <a 
+            href="https://app.fireflyreservations.com/reserve/property/ValeRVPark" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="block w-full bg-primary text-white text-center py-3 rounded-lg hover:bg-opacity-90 transition-colors"
+          >
+            Book Daily Rate
+          </a>
+        </div>
+
+        <!-- Weekly Rate -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <h2 class="text-2xl font-heading font-bold mb-4">Weekly Rate</h2>
+          <p class="text-3xl font-bold text-primary mb-4">$210<span class="text-lg text-gray-600">/week</span></p>
+          <ul class="text-gray-600 space-y-2 mb-6">
+            <li>Utilities included</li>
+          </ul>
+          <a 
+            href="https://app.fireflyreservations.com/reserve/property/ValeRVPark" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="block w-full bg-primary text-white text-center py-3 rounded-lg hover:bg-opacity-90 transition-colors"
+          >
+            Book Weekly Rate
+          </a>
+        </div>
+
+        <!-- Monthly Rate -->
+        <div class="bg-white rounded-lg shadow-lg p-8">
+          <h2 class="text-2xl font-heading font-bold mb-4">Monthly Rate</h2>
+          <p class="text-3xl font-bold text-primary mb-4">$530<span class="text-lg text-gray-600">/month</span></p>
+          <ul class="text-gray-600 space-y-2 mb-6">
+            <li>+ elecitricity</li>
+          </ul>
+          <a 
+            href="https://docs.google.com/forms/d/e/1FAIpQLSfk4bKsRBdC9YyEJTatw2B0QvfKxXQvATgOjfh4_t3khOLPTw/viewform?usp=pp_url" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="block w-full bg-primary text-white text-center py-3 rounded-lg hover:bg-opacity-90 transition-colors"
+          >
+            Application Required
+          </a>
+        </div>
+      </div>
+
+      <!-- Additional Information -->
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-heading font-bold mb-4">Important Information</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-xl font-bold mb-2">Cancellation Policy</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Daily/Weekly: 48-hour notice required</li>
+              <li>Monthly: 30-day notice required</li>
+              <li>No refunds for early departures</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">What's Included</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Full hookups (water, electric, sewer)</li>
+              <li>WiFi access</li>
+              <li>Access to all park amenities</li>
+              <li>One vehicle per site</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout> 

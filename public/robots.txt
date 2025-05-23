@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://valevalleyrv.com/sitemap-index.xml 

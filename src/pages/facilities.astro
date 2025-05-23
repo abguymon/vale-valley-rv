@@ -1,0 +1,89 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Facilities & Amenities"
+  description="Discover the modern amenities and facilities available at Vale Valley RV Park. From full hookups to recreational areas, we have everything you need for a comfortable stay."
+>
+  <div class="bg-gray-50 py-12">
+    <div class="container mx-auto px-4">
+      <h1 class="text-4xl font-heading font-bold text-center mb-12">Our Facilities & Amenities</h1>
+      
+      <!-- RV Sites -->
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <h2 class="text-2xl font-heading font-bold mb-4">RV Sites</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-xl font-bold mb-2">Full Hookup Sites</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>30/50 amp electrical service</li>
+              <li>120 amp outlets</li>
+              <li>Water and sewer connections</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">Site Features</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Pull-through and back-in options</li>
+              <li>Pet-friendly areas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Amenities -->
+      <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+        <h2 class="text-2xl font-heading font-bold mb-4">Park Amenities</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-xl font-bold mb-2">Recreation</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Clubhouse and game room</li>
+              <li>Fitness center</li>
+              <li>Dog park</li>
+              <li>Pickleball courts coming soon!</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold mb-2">Facilities</h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>Washer and dryers</li>
+              <li>Clean showers and bathroom facilities</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- RV Map -->
+      <div class="max-w-xl mx-auto mb-8">
+        <a href="/rv-map.webp" target="_blank" rel="noopener noreferrer">
+          <img src="/rv-map.webp" alt="RV Map" class="w-full h-auto rounded-lg shadow-md hover:shadow-lg transition-shadow" />
+        </a>
+      </div>
+
+      <!-- Park Guidelines Button -->
+      <div class="bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-heading font-bold mb-4">Park Guidelines</h2>
+        <p class="text-gray-600 mb-4">For detailed information about our park guidelines, please review the PDF document.</p>
+        <a 
+          href="/Park-Guidelines.pdf" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-block bg-primary text-white font-bold px-6 py-3 rounded-lg hover:bg-opacity-90 transition-colors"
+        >
+          View Park Guidelines
+        </a>
+      </div>
+      <!-- Reserve Now Button -->
+      <div class="text-center mt-8">
+        <a 
+          href="/reserve" 
+          class="inline-block bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors"
+        >
+          Reserve Now
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout> 

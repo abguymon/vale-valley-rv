@@ -1,16 +1,56 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout 
+  title="Welcome to Vale Valley RV Park"
+  description="Experience the perfect blend of nature and comfort at Vale Valley RV Park. Enjoy spacious sites, modern amenities, and breathtaking views in the heart of nature."
+>
+  <div class="relative">
+    <!-- Hero Section -->
+    <div class="bg-primary text-white py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl">
+          <h1 class="text-5xl font-heading font-bold mb-6">Your Perfect RV Getaway</h1>
+          <p class="text-xl mb-4">Welcome to Vale RV Park, where adventure meets comfort in the stunning outdoor playground of Vale, Oregon.</p>
+          <p class="text-xl mb-8">With over 120 spacious RV pads equipped with full hook-ups, we provide a convenient and comfortable home base for your journey. Whether you're planning a weekend getaway or an extended stay, we offer flexible rates to accommodate your needs, with options for daily, weekly, and monthly stays.</p>
+          <a href="/reserve" class="bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors">Reserve Now</a>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-heading font-bold text-center mb-12">Why Choose Vale Valley RV Park?</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center p-6">
+            <div class="text-4xl mb-4">🏕️</div>
+            <h3 class="text-xl font-bold mb-2">Spacious Sites</h3>
+            <p class="text-gray-600">Enjoy plenty of space for your RV with our generously sized sites.</p>
+          </div>
+          <div class="text-center p-6">
+            <div class="text-4xl mb-4">🚿</div>
+            <h3 class="text-xl font-bold mb-2">Modern Amenities</h3>
+            <p class="text-gray-600">Clean facilities, hot showers, and laundry services.</p>
+          </div>
+          <div class="text-center p-6">
+            <div class="text-4xl mb-4">🌄</div>
+            <h3 class="text-xl font-bold mb-2">Scenic Location</h3>
+            <p class="text-gray-600">Breathtaking views and easy access to local attractions and outdoor activities.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="bg-secondary text-white py-16">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-heading font-bold mb-6">Ready to Experience Vale Valley?</h2>
+        <p class="text-xl mb-8">Book your stay today and create unforgettable memories.</p>
+        <a href="/reserve" class="bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors">Reserve Now</a>
+      </div>
+    </div>
+  </div>
+</Layout>

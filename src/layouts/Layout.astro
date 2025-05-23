@@ -1,0 +1,67 @@
+---
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title} | Vale Valley RV Park</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="min-h-screen bg-gray-50">
+    <header class="bg-primary text-white">
+      <nav class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+          <a href="/" class="flex items-center">
+            <img src="/logo.webp" alt="Vale Valley RV Park Logo" class="h-20 mr-2" />
+            <span class="text-2xl font-heading font-bold">Vale Valley RV Park</span>
+          </a>
+          <div class="space-x-6">
+            <a href="/" class="hover:text-accent">Home</a>
+            <a href="/facilities" class="hover:text-accent">Facilities</a>
+            <a href="/reserve" class="hover:text-accent">Reserve Now</a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="bg-primary text-white mt-12">
+      <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+          <div>
+            <h3 class="text-xl font-heading font-bold mb-4">Contact Us</h3>
+            <p>1480 Graham Blvd</p>
+            <p>Vale, OR 97918</p>
+            <p>Phone: (541) 494-1316</p>
+            <p>Email: valervpark@gmail.com</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-heading font-bold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li><a href="/" class="hover:text-accent">Home</a></li>
+              <li><a href="/facilities" class="hover:text-accent">Facilities</a></li>
+              <li><a href="/reserve" class="hover:text-accent">Reserve Now</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="mt-8 pt-8 border-t border-gray-700 text-center">
+          <p>&copy; {new Date().getFullYear()} Vale Valley RV Park. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html> 
