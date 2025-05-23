@@ -1,14 +1,10 @@
-# Astro Starter Kit: Minimal
+# Vale Valley RV
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Welcome to the Vale Valley RV website repository! This is a modern, responsive website built with Astro for Vale Valley RV, showcasing our RV park and services.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+## 🏕️ About Vale Valley RV
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Vale Valley RV is a premier RV park offering a perfect blend of natural beauty and modern amenities. Our website provides information about our facilities, rates, and booking options.
 
 ## 🚀 Project Structure
 
@@ -16,18 +12,12 @@ Inside of your Astro project, you'll see the following folders and files:
 
 ```text
 /
-├── public/
+├── public/          # Static assets like images
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/  # Reusable UI components
+│   └── pages/       # Website pages and routes
+└── package.json     # Project dependencies and scripts
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
 
 ## 🧞 Commands
 
@@ -42,6 +32,14 @@ All commands are run from the root of the project, from a terminal:
 | `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
 | `npm run astro -- --help` | Get help using the Astro CLI                     |
 
-## 👀 Want to learn more?
+## 🛠️ Development
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+This project is built with:
+
+- [Astro](https://astro.build) - The web framework for content-driven websites
+- Modern web technologies for optimal performance
+- Responsive design for all devices
+
+## 📝 License
+
+All rights reserved © Vale Valley RV
