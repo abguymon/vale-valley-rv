@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://vale-rv-park.netlify.app/*"
+  to = "https://valervpark.com/:splat"
+  status = 301
+  force = true
