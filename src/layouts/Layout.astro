@@ -7,7 +7,7 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -16,17 +16,51 @@ const { title, description } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title} | Vale Valley RV Park</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-RSZ64QB7S9"></script>
+    <script is:inline define:vars={{ gtag: Function }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-RSZ64QB7S9');
+    </script> -->
+    <!-- Google tag (gtag.js) -->
+    <script
+      type="text/partytown"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-RSZ64QB7S9"></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-RSZ64QB7S9");
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body class="min-h-screen bg-gray-50">
     <header class="bg-primary text-white">
       <nav class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
           <a href="/" class="flex items-center">
-            <img src="/logo.webp" alt="Vale Valley RV Park Logo" class="h-20 mr-2" />
-            <span class="text-2xl font-heading font-bold">Vale Valley RV Park</span>
+            <img
+              src="/logo.webp"
+              alt="Vale Valley RV Park Logo"
+              class="h-20 mr-2"
+            />
+            <span class="text-2xl font-heading font-bold"
+              >Vale Valley RV Park</span
+            >
           </a>
           <div class="space-x-6">
             <a href="/" class="hover:text-accent">Home</a>
@@ -53,15 +87,22 @@ const { title, description } = Astro.props;
             <h3 class="text-xl font-heading font-bold mb-4">Quick Links</h3>
             <ul class="space-y-2">
               <li><a href="/" class="hover:text-accent">Home</a></li>
-              <li><a href="/facilities" class="hover:text-accent">Facilities</a></li>
-              <li><a href="/reserve" class="hover:text-accent">Reserve Now</a></li>
+              <li>
+                <a href="/facilities" class="hover:text-accent">Facilities</a>
+              </li>
+              <li>
+                <a href="/reserve" class="hover:text-accent">Reserve Now</a>
+              </li>
             </ul>
           </div>
         </div>
         <div class="mt-8 pt-8 border-t border-gray-700 text-center">
-          <p>&copy; {new Date().getFullYear()} Vale Valley RV Park. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Vale Valley RV Park. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
   </body>
-</html> 
+</html>
+
