@@ -23,19 +23,23 @@ const { title, description } = Astro.props;
     <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Vale RV" />
     <link rel="manifest" href="/favicon/site.webmanifest" />
-    <!-- Google tag (gtag.js) -->
+    <!-- Enhanced Google Analytics -->
     <script
       type="text/partytown"
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-RSZ64QB7S9"></script>
     <script type="text/partytown">
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag("js", new Date());
-
-      gtag("config", "G-RSZ64QB7S9");
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-RSZ64QB7S9', {
+        send_page_view: true,
+        custom_map: {
+          'custom_parameter_1': 'visitor_type',
+          'custom_parameter_2': 'interest_level',
+          'custom_parameter_3': 'season'
+        }
+      });
     </script>
 
     <!-- Fonts -->

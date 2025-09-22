@@ -89,4 +89,95 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </div>
+
+  <!-- Reservation Funnel Tracking -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Track page view
+      if (typeof trackPageView === 'function') {
+        trackPageView('Reserve Page', 'Reservation');
+      }
+
+      // Track rate option views
+      const rateCards = document.querySelectorAll('.bg-white.rounded-lg.shadow-lg');
+      rateCards.forEach((card, index) => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const rateType = card.querySelector('h2').textContent;
+              if (typeof trackReservationStep === 'function') {
+                trackReservationStep(2, `rate_view_${rateType.toLowerCase().replace(' ', '_')}`);
+              }
+            }
+          });
+        });
+        observer.observe(card);
+      });
+
+      // Track rate selection clicks
+      document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', function() {
+          const rateType = this.closest('.bg-white').querySelector('h2').textContent;
+          if (typeof trackReservationStep === 'function') {
+            trackReservationStep(3, `rate_select_${rateType.toLowerCase().replace(' ', '_')}`);
+          }
+        });
+      });
+
+      // Track form interactions
+      document.querySelectorAll('input, select, textarea').forEach(field => {
+        field.addEventListener('focus', function() {
+          if (typeof trackReservationStep === 'function') {
+            trackReservationStep(4, `form_field_focus_${this.name || this.type}`);
+          }
+        });
+
+        field.addEventListener('blur', function() {
+          if (this.value && typeof trackReservationStep === 'function') {
+            trackReservationStep(5, `form_field_complete_${this.name || this.type}`);
+          }
+        });
+      });
+
+      // Track form submission
+      const forms = document.querySelectorAll('form');
+      forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+          if (typeof trackReservationStep === 'function') {
+            trackReservationStep(6, 'form_submit');
+          }
+          
+          // Track as conversion
+          if (typeof trackReservation === 'function') {
+            const formData = new FormData(this);
+            trackReservation({
+              id: 'pending_' + Date.now(),
+              value: getSelectedRateValue(),
+              currency: 'USD'
+            });
+          }
+        });
+      });
+
+      // Track page abandonment
+      let hasInteracted = false;
+      document.addEventListener('click', () => hasInteracted = true);
+      document.addEventListener('keypress', () => hasInteracted = true);
+      
+      window.addEventListener('beforeunload', function() {
+        if (hasInteracted && typeof trackReservationAbandonment === 'function') {
+          trackReservationAbandonment('reserve_page');
+        }
+      });
+
+      function getSelectedRateValue() {
+        // Get the selected rate value (you'll need to implement this based on your form)
+        const selectedRate = document.querySelector('input[name="rate"]:checked');
+        if (selectedRate) {
+          return parseFloat(selectedRate.value) || 50;
+        }
+        return 50; // Default daily rate
+      }
+    });
+  </script>
 </Layout> 

@@ -124,8 +124,58 @@ const galleryImages = [
       <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-heading font-bold mb-6">Ready to Experience Vale Valley?</h2>
         <p class="text-xl mb-8">Book your stay today and create unforgettable memories.</p>
-        <a href="/reserve" class="bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors">Reserve Now</a>
+        <a href="/reserve" 
+           class="bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors"
+           onclick="trackReservationStep(1, 'cta_click')">Reserve Now</a>
       </div>
     </div>
   </div>
+
+  <!-- Enhanced Analytics Tracking -->
+  <script>
+    // Track page view with enhanced data
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof trackPageView === 'function') {
+        trackPageView('Homepage', 'Landing Page');
+      }
+    });
+
+    // Track image gallery interactions
+    document.addEventListener('click', function(e) {
+      if (e.target.closest('.group')) {
+        const imageElement = e.target.closest('.group').querySelector('img');
+        if (imageElement && typeof trackImageInteraction === 'function') {
+          trackImageInteraction(imageElement.alt || 'Gallery Image', 'click');
+        }
+      }
+    });
+
+    // Track CTA button clicks
+    document.querySelectorAll('a[href="/reserve"]').forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof trackReservationStep === 'function') {
+          trackReservationStep(1, 'reserve_button_click');
+        }
+      });
+    });
+
+    // Track facility interest (if you have facility links)
+    document.querySelectorAll('a[href*="facilities"]').forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof trackFacilityInterest === 'function') {
+          trackFacilityInterest('Facilities Page');
+        }
+      });
+    });
+
+    // Track contact actions
+    document.querySelectorAll('a[href*="tel:"], a[href*="mailto:"]').forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof trackContactAction === 'function') {
+          const method = link.href.startsWith('tel:') ? 'phone' : 'email';
+          trackContactAction('contact_click', method);
+        }
+      });
+    });
+  </script>
 </Layout>

@@ -1,0 +1,174 @@
+---
+// Enhanced Google Analytics tracking component
+---
+
+<!-- Enhanced Google Analytics (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RSZ64QB7S9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-RSZ64QB7S9', {
+    // Enhanced measurement
+    send_page_view: true,
+    // Custom parameters for RV park business
+    custom_map: {
+      'custom_parameter_1': 'visitor_type',
+      'custom_parameter_2': 'interest_level',
+      'custom_parameter_3': 'season'
+    }
+  });
+
+  // Track page views with enhanced data
+  function trackPageView(pageName, category = 'Page View') {
+    gtag('event', 'page_view', {
+      page_title: pageName,
+      page_location: window.location.href,
+      page_path: window.location.pathname,
+      content_group1: category,
+      // RV park specific data
+      custom_parameter_1: getVisitorType(),
+      custom_parameter_2: getInterestLevel(),
+      custom_parameter_3: getCurrentSeason()
+    });
+  }
+
+  // Track image interactions (gallery views)
+  function trackImageInteraction(imageName, action = 'view') {
+    gtag('event', 'image_interaction', {
+      event_category: 'Gallery',
+      event_label: imageName,
+      value: 1,
+      custom_parameter_1: getVisitorType()
+    });
+  }
+
+  // Track reservation funnel steps
+  function trackReservationStep(step, stepName) {
+    gtag('event', 'reservation_funnel', {
+      event_category: 'Reservation',
+      event_label: stepName,
+      value: step,
+      custom_parameter_1: getVisitorType(),
+      custom_parameter_2: getInterestLevel()
+    });
+  }
+
+  // Track facility interest
+  function trackFacilityInterest(facilityName) {
+    gtag('event', 'facility_interest', {
+      event_category: 'Facilities',
+      event_label: facilityName,
+      value: 1,
+      custom_parameter_1: getVisitorType()
+    });
+  }
+
+  // Track contact actions
+  function trackContactAction(action, method = 'unknown') {
+    gtag('event', 'contact_action', {
+      event_category: 'Contact',
+      event_label: action,
+      value: 1,
+      custom_parameter_1: getVisitorType(),
+      custom_parameter_2: method
+    });
+  }
+
+  // Helper functions
+  function getVisitorType() {
+    // Determine if visitor is new or returning
+    const isReturning = localStorage.getItem('vale_valley_visitor') === 'true';
+    if (!isReturning) {
+      localStorage.setItem('vale_valley_visitor', 'true');
+      return 'new';
+    }
+    return 'returning';
+  }
+
+  function getInterestLevel() {
+    // Determine interest level based on page views and time on site
+    const pageViews = parseInt(sessionStorage.getItem('page_views') || '0') + 1;
+    sessionStorage.setItem('page_views', pageViews.toString());
+    
+    if (pageViews >= 5) return 'high';
+    if (pageViews >= 3) return 'medium';
+    return 'low';
+  }
+
+  function getCurrentSeason() {
+    const month = new Date().getMonth();
+    if (month >= 2 && month <= 4) return 'spring';
+    if (month >= 5 && month <= 7) return 'summer';
+    if (month >= 8 && month <= 10) return 'fall';
+    return 'winter';
+  }
+
+  // Track scroll depth
+  let maxScroll = 0;
+  window.addEventListener('scroll', function() {
+    const scrollPercent = Math.round((window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100);
+    if (scrollPercent > maxScroll && scrollPercent % 25 === 0) {
+      maxScroll = scrollPercent;
+      gtag('event', 'scroll_depth', {
+        event_category: 'Engagement',
+        event_label: `${scrollPercent}%`,
+        value: scrollPercent,
+        custom_parameter_1: getVisitorType()
+      });
+    }
+  });
+
+  // Track time on page
+  let startTime = Date.now();
+  window.addEventListener('beforeunload', function() {
+    const timeOnPage = Math.round((Date.now() - startTime) / 1000);
+    gtag('event', 'time_on_page', {
+      event_category: 'Engagement',
+      event_label: 'seconds',
+      value: timeOnPage,
+      custom_parameter_1: getVisitorType()
+    });
+  });
+
+  // Make functions globally available
+  window.trackPageView = trackPageView;
+  window.trackImageInteraction = trackImageInteraction;
+  window.trackReservationStep = trackReservationStep;
+  window.trackFacilityInterest = trackFacilityInterest;
+  window.trackContactAction = trackContactAction;
+</script>
+
+<!-- Google Analytics Enhanced Ecommerce (for reservation tracking) -->
+<script>
+  // Track reservation as a conversion
+  function trackReservation(reservationData) {
+    gtag('event', 'purchase', {
+      transaction_id: reservationData.id || 'pending',
+      value: reservationData.value || 0,
+      currency: 'USD',
+      items: [{
+        item_id: 'rv_site_reservation',
+        item_name: 'RV Site Reservation',
+        category: 'Accommodation',
+        quantity: 1,
+        price: reservationData.value || 0
+      }],
+      custom_parameter_1: getVisitorType(),
+      custom_parameter_2: getInterestLevel()
+    });
+  }
+
+  // Track reservation abandonment
+  function trackReservationAbandonment(step) {
+    gtag('event', 'reservation_abandonment', {
+      event_category: 'Reservation',
+      event_label: `abandoned_at_${step}`,
+      value: 1,
+      custom_parameter_1: getVisitorType()
+    });
+  }
+
+  window.trackReservation = trackReservation;
+  window.trackReservationAbandonment = trackReservationAbandonment;
+</script>
