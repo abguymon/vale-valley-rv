@@ -1,9 +1,16 @@
 ---
 import { Image } from 'astro:assets';
 
+// Import images for optimization
+import parkDrone from '../assets/images/gallery/park_drone.JPG';
+import parkOverview from '../assets/images/gallery/park_overview.jpg';
+import sunrise from '../assets/images/gallery/sunrise.jpg';
+import laundry from '../assets/images/gallery/laundry.jpg';
+import gameRoom from '../assets/images/gallery/game_room.jpg';
+
 export interface Props {
   images: Array<{
-    src: string;
+    src: any; // Astro Image import
     alt: string;
     caption?: string;
     width?: number;
