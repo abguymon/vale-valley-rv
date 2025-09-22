@@ -1,5 +1,43 @@
 ---
+import ImageGallery from '../components/ImageGallery.astro';
 import Layout from '../layouts/Layout.astro';
+
+// Sample images - replace with your actual photos
+const heroImages = [
+  {
+    src: '/images/hero/aurora_park.jpg',
+    alt: 'Aerial view of Vale Valley RV Park showing off Aurora Borealis',
+    caption: 'Spacious RV sites with full hookups'
+  }
+];
+
+const galleryImages = [
+  {
+    src: '/images/gallery/park_drone.JPG',
+    alt: 'Aerial drone view of Vale Valley RV Park showing the layout and beautiful landscape',
+    caption: 'Aerial view of our spacious RV park'
+  },
+  {
+    src: '/images/gallery/park_overview.jpg',
+    alt: 'Overview of Vale Valley RV Park facilities and RV sites',
+    caption: 'Modern facilities and spacious sites'
+  },
+  {
+    src: '/images/gallery/sunrise.jpg',
+    alt: 'Beautiful sunrise view from Vale Valley RV Park',
+    caption: 'Stunning sunrise views'
+  },
+  {
+    src: '/images/gallery/laundry.jpg',
+    alt: 'Clean, modern laundry facilities at Vale Valley RV Park',
+    caption: 'Clean, modern facilities'
+  },
+  {
+    src: '/images/gallery/game_room.jpg',
+    alt: 'Game room and recreation area at Vale Valley RV Park',
+    caption: 'Fun recreation area'
+  }
+];
 ---
 
 <Layout 
@@ -7,16 +45,31 @@ import Layout from '../layouts/Layout.astro';
   description="Experience the perfect blend of nature and comfort at Vale Valley RV Park. Enjoy spacious sites, modern amenities, and breathtaking views in the heart of nature."
 >
   <div class="relative">
-    <!-- Hero Section -->
-    <div class="bg-primary text-white py-20">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl">
-          <h1 class="text-5xl font-heading font-bold mb-6">Your Perfect RV Getaway</h1>
-          <p class="text-xl mb-4">Welcome to Vale RV Park, where adventure meets comfort in the stunning outdoor playground of Vale, Oregon.</p>
-          <p class="text-xl mb-8">With over 120 spacious RV pads equipped with full hook-ups, we provide a convenient and comfortable home base for your journey. Whether you're planning a weekend getaway or an extended stay, we offer flexible rates to accommodate your needs, with options for daily, weekly, and monthly stays.</p>
-          <a href="/reserve" class="bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors">Reserve Now</a>
-        </div>
+    <!-- Hero Section with Background Image -->
+    <div class="relative bg-primary text-white py-20 overflow-hidden">
+      <!-- Background Image -->
+      <div class="absolute inset-0 z-0">
+        <img
+          src={heroImages[0].src}
+          alt={heroImages[0].alt}
+          width={1920}
+          height={1080}
+          class="w-full h-full object-cover"
+          loading="eager"
+          decoding="async"
+        />
+        <!-- Gradient overlay for text readability -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent"></div>
       </div>
+      
+      <!-- Content Overlay -->
+      <div class="relative z-10 container mx-auto px-4">
+        <div class="max-w-3xl bg-black/30 backdrop-blur-sm rounded-lg p-8">
+          <h1 class="text-5xl font-heading font-bold mb-6 text-white" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.8);">Your Perfect RV Getaway</h1>
+          <p class="text-xl mb-4 text-white" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">Welcome to Vale RV Park, where adventure meets comfort in the stunning outdoor playground of Vale, Oregon.</p>
+          <p class="text-xl mb-8 text-white" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">With over 120 spacious RV pads equipped with full hook-ups, we provide a convenient and comfortable home base for your journey. Whether you're planning a weekend getaway or an extended stay, we offer flexible rates to accommodate your needs, with options for daily, weekly, and monthly stays.</p>
+          <a href="/reserve" class="bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors shadow-lg">Reserve Now</a>
+        </div>
       </div>
     </div>
 
@@ -41,6 +94,21 @@ import Layout from '../layouts/Layout.astro';
             <p class="text-gray-600">Breathtaking views and easy access to local attractions and outdoor activities.</p>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Photo Gallery Section -->
+    <div class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-heading font-bold text-center mb-12">See What Makes Vale Valley Special</h2>
+        <p class="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
+          Take a virtual tour of our beautiful RV park and see why guests choose us for their outdoor adventures.
+        </p>
+        <ImageGallery 
+          images={galleryImages} 
+          columns={3} 
+          aspectRatio="landscape" 
+        />
       </div>
     </div>
 

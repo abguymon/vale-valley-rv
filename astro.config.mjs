@@ -7,4 +7,13 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   site: 'https://valevalleyrv.com', // Replace with your actual domain
   integrations: [tailwind(), sitemap()],
+  image: {
+    // Enable image optimization
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+      config: {
+        limitInputPixels: false,
+      },
+    },
+  },
 });

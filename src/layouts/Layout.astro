@@ -25,13 +25,31 @@ const { title, description } = Astro.props;
       <nav class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
           <a href="/" class="flex items-center">
-            <img src="/logo.webp" alt="Vale Valley RV Park Logo" class="h-20 mr-2" />
-            <span class="text-2xl font-heading font-bold">Vale Valley RV Park</span>
+            <img src="/logo.webp" alt="Vale Valley RV Park Logo" class="h-16 md:h-20 mr-2" />
+            <span class="text-lg md:text-2xl font-heading font-bold">Vale Valley RV Park</span>
           </a>
-          <div class="space-x-6">
-            <a href="/" class="hover:text-accent">Home</a>
-            <a href="/facilities" class="hover:text-accent">Facilities</a>
-            <a href="/reserve" class="hover:text-accent">Reserve Now</a>
+          
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex space-x-6">
+            <a href="/" class="hover:text-accent transition-colors">Home</a>
+            <a href="/facilities" class="hover:text-accent transition-colors">Facilities</a>
+            <a href="/reserve" class="hover:text-accent transition-colors">Reserve Now</a>
+          </div>
+          
+          <!-- Mobile Hamburger Button -->
+          <button id="mobile-menu-button" class="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4 border-t border-white/20">
+          <div class="flex flex-col space-y-4 pt-4">
+            <a href="/" class="hover:text-accent transition-colors py-2">Home</a>
+            <a href="/facilities" class="hover:text-accent transition-colors py-2">Facilities</a>
+            <a href="/reserve" class="hover:text-accent transition-colors py-2">Reserve Now</a>
           </div>
         </div>
       </nav>
@@ -63,5 +81,40 @@ const { title, description } = Astro.props;
         </div>
       </div>
     </footer>
+    
+    <script>
+      // Mobile menu toggle functionality
+      document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            
+            // Toggle hamburger icon to X
+            const icon = mobileMenuButton.querySelector('svg');
+            if (mobileMenu.classList.contains('hidden')) {
+              // Show hamburger icon
+              icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            } else {
+              // Show X icon
+              icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>';
+            }
+          });
+          
+          // Close menu when clicking on a link
+          const mobileLinks = mobileMenu.querySelectorAll('a');
+          mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+              mobileMenu.classList.add('hidden');
+              // Reset to hamburger icon
+              const icon = mobileMenuButton.querySelector('svg');
+              icon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>';
+            });
+          });
+        }
+      });
+    </script>
   </body>
 </html> 

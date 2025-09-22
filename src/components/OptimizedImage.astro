@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+
+export interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  caption?: string;
+  priority?: boolean;
+  class?: string;
+  sizes?: string;
+}
+
+const { 
+  src, 
+  alt, 
+  width = 800, 
+  height = 600, 
+  caption, 
+  priority = false,
+  class: className = '',
+  sizes = '(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw'
+} = Astro.props;
+
+// For external images, we'll use regular img tag with optimization
+const isExternal = src.startsWith('http') || src.startsWith('//');
+// For local images in public folder, use regular img tag
+const isPublicImage = src.startsWith('/') && !src.startsWith('http');
+---
+
+{isExternal || isPublicImage ? (
+  <figure class={`group relative overflow-hidden rounded-lg ${className}`}>
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+      sizes={sizes}
+    />
+    {caption && (
+      <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        <p class="text-white text-sm font-medium">{caption}</p>
+      </figcaption>
+    )}
+  </figure>
+) : (
+  <figure class={`group relative overflow-hidden rounded-lg ${className}`}>
+    <Image
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={priority ? 'eager' : 'lazy'}
+      decoding="async"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+      sizes={sizes}
+      format="webp"
+      quality={85}
+    />
+    {caption && (
+      <figcaption class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+        <p class="text-white text-sm font-medium">{caption}</p>
+      </figcaption>
+    )}
+  </figure>
+)}
+
+<style>
+  /* Smooth loading animation */
+  img, astro-image {
+    background-color: #f3f4f6;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  img.loaded, astro-image.loaded {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  // Add loaded class when images finish loading
+  document.addEventListener('DOMContentLoaded', () => {
+    const images = document.querySelectorAll('img, astro-image');
+    
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const img = entry.target as HTMLImageElement;
+          img.addEventListener('load', () => {
+            img.classList.add('loaded');
+          });
+          observer.unobserve(img);
+        }
+      });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+  });
+</script>
