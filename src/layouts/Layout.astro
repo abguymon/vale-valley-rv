@@ -7,26 +7,73 @@ interface Props {
 const { title, description } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- Meta -->
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <title>{title} | Vale Valley RV Park</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Vale RV" />
+    <link rel="manifest" href="/favicon/site.webmanifest" />
+    <!-- Google tag (gtag.js) -->
+    <script
+      type="text/partytown"
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-RSZ64QB7S9"></script>
+    <script type="text/partytown">
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-RSZ64QB7S9");
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Vale Valley RV Park" />
+    <meta property="og:description" content="Vale Valley RV Park is a family-friendly RV park located in Vale, Oregon. We offer a variety of amenities and activities for our guests." />
+    <meta property="og:image" content="/logo.webp" />
+    <meta property="og:url" content="https://valervpark.com" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Vale Valley RV Park" />
+    <meta name="twitter:description" content="Vale Valley RV Park is a family-friendly RV park located in Vale, Oregon. We offer a variety of amenities and activities for our guests." />
+    <meta name="twitter:image" content="/logo.webp" />
+    
   </head>
   <body class="min-h-screen bg-gray-50">
+    <!-- Header -->
     <header class="bg-primary text-white">
       <nav class="container mx-auto px-4 py-4">
         <div class="flex justify-between items-center">
           <a href="/" class="flex items-center">
-            <img src="/logo.webp" alt="Vale Valley RV Park Logo" class="h-16 md:h-20 mr-2" />
-            <span class="text-lg md:text-2xl font-heading font-bold">Vale Valley RV Park</span>
+            <img
+              src="/logo.webp"
+              alt="Vale Valley RV Park Logo"
+              class="h-16 md:h-20 mr-2"
+            />
+            <span class="text-lg md:text-2xl font-heading font-bold"
+              >Vale Valley RV Park</span
+            >
           </a>
           
           <!-- Desktop Navigation -->
@@ -35,25 +82,76 @@ const { title, description } = Astro.props;
             <a href="/facilities" class="hover:text-accent transition-colors">Facilities</a>
             <a href="/reserve" class="hover:text-accent transition-colors">Reserve Now</a>
           </div>
-          
-          <!-- Mobile Hamburger Button -->
-          <button id="mobile-menu-button" class="md:hidden p-2 hover:bg-white/10 rounded-lg transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobile-menu-button"
+            class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1"
+            aria-label="Toggle mobile menu"
+          >
+            <span class="block w-6 h-0.5 bg-white transition-all duration-300 transform" id="hamburger-line-1"></span>
+            <span class="block w-6 h-0.5 bg-white transition-all duration-300 transform" id="hamburger-line-2"></span>
+            <span class="block w-6 h-0.5 bg-white transition-all duration-300 transform" id="hamburger-line-3"></span>
           </button>
         </div>
-        
+
         <!-- Mobile Navigation Menu -->
-        <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4 border-t border-white/20">
-          <div class="flex flex-col space-y-4 pt-4">
-            <a href="/" class="hover:text-accent transition-colors py-2">Home</a>
-            <a href="/facilities" class="hover:text-accent transition-colors py-2">Facilities</a>
+        <div id="mobile-menu" class="md:hidden hidden mt-4 pb-4">
+          <div class="flex flex-col space-y-4">
+            <a href="/" class="hover:text-accent transition-colors py-2 border-b border-gray-600">Home</a>
+            <a href="/facilities" class="hover:text-accent transition-colors py-2 border-b border-gray-600">Facilities</a>
             <a href="/reserve" class="hover:text-accent transition-colors py-2">Reserve Now</a>
           </div>
         </div>
       </nav>
     </header>
+
+    <!-- Mobile Menu JavaScript -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerLine1 = document.getElementById('hamburger-line-1');
+        const hamburgerLine2 = document.getElementById('hamburger-line-2');
+        const hamburgerLine3 = document.getElementById('hamburger-line-3');
+
+        // Check if all elements exist
+        if (!mobileMenuButton || !mobileMenu || !hamburgerLine1 || !hamburgerLine2 || !hamburgerLine3) {
+          return;
+        }
+
+        mobileMenuButton.addEventListener('click', function() {
+          const isOpen = mobileMenu.classList.contains('hidden');
+          
+          if (isOpen) {
+            // Open menu
+            mobileMenu.classList.remove('hidden');
+            hamburgerLine1.classList.add('rotate-45', 'translate-y-1.5');
+            hamburgerLine2.classList.add('opacity-0');
+            hamburgerLine3.classList.add('-rotate-45', '-translate-y-1.5');
+          } else {
+            // Close menu
+            mobileMenu.classList.add('hidden');
+            hamburgerLine1.classList.remove('rotate-45', 'translate-y-1.5');
+            hamburgerLine2.classList.remove('opacity-0');
+            hamburgerLine3.classList.remove('-rotate-45', '-translate-y-1.5');
+          }
+        });
+
+        // Close menu when clicking on a link
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+            hamburgerLine1.classList.remove('rotate-45', 'translate-y-1.5');
+            hamburgerLine2.classList.remove('opacity-0');
+            hamburgerLine3.classList.remove('-rotate-45', '-translate-y-1.5');
+          });
+        });
+      });
+    </script>
+
+    <!-- Main -->
     <main>
       <slot />
     </main>
@@ -71,13 +169,19 @@ const { title, description } = Astro.props;
             <h3 class="text-xl font-heading font-bold mb-4">Quick Links</h3>
             <ul class="space-y-2">
               <li><a href="/" class="hover:text-accent">Home</a></li>
-              <li><a href="/facilities" class="hover:text-accent">Facilities</a></li>
-              <li><a href="/reserve" class="hover:text-accent">Reserve Now</a></li>
+              <li>
+                <a href="/facilities" class="hover:text-accent">Facilities</a>
+              </li>
+              <li>
+                <a href="/reserve" class="hover:text-accent">Reserve Now</a>
+              </li>
             </ul>
           </div>
         </div>
         <div class="mt-8 pt-8 border-t border-gray-700 text-center">
-          <p>&copy; {new Date().getFullYear()} Vale Valley RV Park. All rights reserved.</p>
+          <p>
+            &copy; {new Date().getFullYear()} Vale Valley RV Park. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
@@ -117,4 +221,5 @@ const { title, description } = Astro.props;
       });
     </script>
   </body>
-</html> 
+</html>
+
