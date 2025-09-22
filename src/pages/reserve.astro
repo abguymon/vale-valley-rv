@@ -92,10 +92,20 @@ import Layout from '../layouts/Layout.astro';
 
   <!-- Reservation Funnel Tracking -->
   <script>
+    // Declare global types for TypeScript
+    declare global {
+      interface Window {
+        trackPageView: (pageName: string, category?: string) => void;
+        trackReservationStep: (step: number, stepName: string) => void;
+        trackReservation: (reservationData: any) => void;
+        trackReservationAbandonment: (step: string) => void;
+      }
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
       // Track page view
-      if (typeof trackPageView === 'function') {
-        trackPageView('Reserve Page', 'Reservation');
+      if (typeof window.trackPageView === 'function') {
+        window.trackPageView('Reserve Page', 'Reservation');
       }
 
       // Track rate option views
@@ -104,9 +114,10 @@ import Layout from '../layouts/Layout.astro';
         const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              const rateType = card.querySelector('h2').textContent;
-              if (typeof trackReservationStep === 'function') {
-                trackReservationStep(2, `rate_view_${rateType.toLowerCase().replace(' ', '_')}`);
+              const rateTypeElement = card.querySelector('h2') as HTMLElement;
+              const rateType = rateTypeElement?.textContent || 'unknown';
+              if (typeof window.trackReservationStep === 'function') {
+                window.trackReservationStep(2, `rate_view_${rateType.toLowerCase().replace(' ', '_')}`);
               }
             }
           });
@@ -116,25 +127,27 @@ import Layout from '../layouts/Layout.astro';
 
       // Track rate selection clicks
       document.querySelectorAll('button').forEach(button => {
-        button.addEventListener('click', function() {
-          const rateType = this.closest('.bg-white').querySelector('h2').textContent;
-          if (typeof trackReservationStep === 'function') {
-            trackReservationStep(3, `rate_select_${rateType.toLowerCase().replace(' ', '_')}`);
+        button.addEventListener('click', function(this: HTMLButtonElement) {
+          const parentCard = this.closest('.bg-white') as HTMLElement;
+          const rateTypeElement = parentCard?.querySelector('h2') as HTMLElement;
+          const rateType = rateTypeElement?.textContent || 'unknown';
+          if (typeof window.trackReservationStep === 'function') {
+            window.trackReservationStep(3, `rate_select_${rateType.toLowerCase().replace(' ', '_')}`);
           }
         });
       });
 
       // Track form interactions
       document.querySelectorAll('input, select, textarea').forEach(field => {
-        field.addEventListener('focus', function() {
-          if (typeof trackReservationStep === 'function') {
-            trackReservationStep(4, `form_field_focus_${this.name || this.type}`);
+        field.addEventListener('focus', function(this: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) {
+          if (typeof window.trackReservationStep === 'function') {
+            window.trackReservationStep(4, `form_field_focus_${this.name || this.type}`);
           }
         });
 
-        field.addEventListener('blur', function() {
-          if (this.value && typeof trackReservationStep === 'function') {
-            trackReservationStep(5, `form_field_complete_${this.name || this.type}`);
+        field.addEventListener('blur', function(this: HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement) {
+          if (this.value && typeof window.trackReservationStep === 'function') {
+            window.trackReservationStep(5, `form_field_complete_${this.name || this.type}`);
           }
         });
       });
@@ -143,14 +156,14 @@ import Layout from '../layouts/Layout.astro';
       const forms = document.querySelectorAll('form');
       forms.forEach(form => {
         form.addEventListener('submit', function(e) {
-          if (typeof trackReservationStep === 'function') {
-            trackReservationStep(6, 'form_submit');
+          if (typeof window.trackReservationStep === 'function') {
+            window.trackReservationStep(6, 'form_submit');
           }
           
           // Track as conversion
-          if (typeof trackReservation === 'function') {
+          if (typeof window.trackReservation === 'function') {
             const formData = new FormData(this);
-            trackReservation({
+            window.trackReservation({
               id: 'pending_' + Date.now(),
               value: getSelectedRateValue(),
               currency: 'USD'
@@ -165,14 +178,14 @@ import Layout from '../layouts/Layout.astro';
       document.addEventListener('keypress', () => hasInteracted = true);
       
       window.addEventListener('beforeunload', function() {
-        if (hasInteracted && typeof trackReservationAbandonment === 'function') {
-          trackReservationAbandonment('reserve_page');
+        if (hasInteracted && typeof window.trackReservationAbandonment === 'function') {
+          window.trackReservationAbandonment('reserve_page');
         }
       });
 
       function getSelectedRateValue() {
         // Get the selected rate value (you'll need to implement this based on your form)
-        const selectedRate = document.querySelector('input[name="rate"]:checked');
+        const selectedRate = document.querySelector('input[name="rate"]:checked') as HTMLInputElement;
         if (selectedRate) {
           return parseFloat(selectedRate.value) || 50;
         }
