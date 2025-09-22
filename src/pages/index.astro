@@ -124,8 +124,72 @@ const galleryImages = [
       <div class="container mx-auto px-4 text-center">
         <h2 class="text-3xl font-heading font-bold mb-6">Ready to Experience Vale Valley?</h2>
         <p class="text-xl mb-8">Book your stay today and create unforgettable memories.</p>
-        <a href="/reserve" class="bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors">Reserve Now</a>
+        <a href="/reserve" 
+           class="bg-accent text-primary font-bold px-8 py-3 rounded-lg hover:bg-opacity-90 transition-colors"
+           onclick="trackReservationStep(1, 'cta_click')">Reserve Now</a>
       </div>
     </div>
   </div>
+
+  <!-- Enhanced Analytics Tracking -->
+  <script>
+    // Declare global types for TypeScript
+    declare global {
+      interface Window {
+        trackPageView: (pageName: string, category?: string) => void;
+        trackImageInteraction: (imageName: string, action?: string) => void;
+        trackReservationStep: (step: number, stepName: string) => void;
+        trackFacilityInterest: (facilityName: string) => void;
+        trackContactAction: (action: string, method?: string) => void;
+      }
+    }
+
+    // Track page view with enhanced data
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof window.trackPageView === 'function') {
+        window.trackPageView('Homepage', 'Landing Page');
+      }
+    });
+
+    // Track image gallery interactions
+    document.addEventListener('click', function(e) {
+      const target = e.target as HTMLElement;
+      if (target && target.closest('.group')) {
+        const groupElement = target.closest('.group') as HTMLElement;
+        const imageElement = groupElement?.querySelector('img') as HTMLImageElement;
+        if (imageElement && typeof window.trackImageInteraction === 'function') {
+          window.trackImageInteraction(imageElement.alt || 'Gallery Image', 'click');
+        }
+      }
+    });
+
+    // Track CTA button clicks
+    document.querySelectorAll('a[href="/reserve"]').forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof window.trackReservationStep === 'function') {
+          window.trackReservationStep(1, 'reserve_button_click');
+        }
+      });
+    });
+
+    // Track facility interest (if you have facility links)
+    document.querySelectorAll('a[href*="facilities"]').forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof window.trackFacilityInterest === 'function') {
+          window.trackFacilityInterest('Facilities Page');
+        }
+      });
+    });
+
+    // Track contact actions
+    document.querySelectorAll('a[href*="tel:"], a[href*="mailto:"]').forEach(link => {
+      link.addEventListener('click', function() {
+        if (typeof window.trackContactAction === 'function') {
+          const href = (link as HTMLAnchorElement).href;
+          const method = href.startsWith('tel:') ? 'phone' : 'email';
+          window.trackContactAction('contact_click', method);
+        }
+      });
+    });
+  </script>
 </Layout>
